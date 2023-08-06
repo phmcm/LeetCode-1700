@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    int numEst, i, numSand,m;
+    char filaAlunos[100],pilhaSand[100];
+    printf("Quantos estudantes estão na fila: ");
+    scanf("%d", &numEst);
+    numSand = numEst;
+    //for para fazer a fila de alunos
+    for (i = 0; i <= numEst; i++)
+    {
+        printf("\nDigite a preferência do aluno: ");
+        scanf("%c", &filaAlunos[i]);
+    }
+    //for para fazer a pilha de sanduiches
+    for(m = 0;i <= numEst;m++){
+        printf("\nDigite o tipo de Sanduiche: ");
+        scanf("%c",&pilhaSand[m]);
+
+    }
+do
+{
+    if(filaAlunos[i] == pilhaSand[m]){
+        i++;
+        m++;
+    }
+    if(filaAlunos[i] != pilhaSand[m]){
+        i++;
+    }
+} while (filaAlunos < pilhaSand);
+}
+
+/*  Sanduiches Circulares == 0
+Sanduiches Quadrados == 1
+Numero de Sanduiches == Numero Estudantes
+Acaba quando sobrar 1 sanduiche que o estudante não queria comer
+*/

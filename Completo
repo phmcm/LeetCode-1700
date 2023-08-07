@@ -13,17 +13,17 @@ int countStudents(int* students, int studentsSize, int* sandwiches, int sandwich
 
     for (int i = 0; i < studentsSize; i++) {
         if (!isValidInput(students[i])) {
-            printf("Valor invalido! Digite novamente (0 - circular, 1 - quadrado): ");
+            printf("Valor inválido! Digite novamente (0 - circular, 1 - quadrado): ");
             scanf("%d", &students[i]);
-            i--; // Reexecuta a iteração para ler o valor corretamente
+            i--; // ler o valor corretamente
         }
     }
 
     for (int i = 0; i < sandwichesSize && currentStudentIdx < studentsSize; i++) {
         if (!isValidInput(sandwiches[i])) {
-            printf("Valor invalido! Digite novamente (0 - circular, 1 - quadrado): ");
+            printf("Valor inválido! Digite novamente (0 - circular, 1 - quadrado): ");
             scanf("%d", &sandwiches[i]);
-            i--; // Reexecuta a iteração para ler o valor corretamente
+            i--; // ler o valor corretamente
         } else {
             while (currentStudentIdx < studentsSize && students[currentStudentIdx] != sandwiches[i]) {
                 currentStudentIdx++;

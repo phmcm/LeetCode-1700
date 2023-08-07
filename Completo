@@ -1,61 +1,38 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-// Estrutura da fila
-typedef struct {
-    int items[100];
-    int front;
-    int rear;
-} Queue;
-
-// Inicializar a fila
-void init(Queue *queue) {
-    queue->front = 0;
-    queue->rear = -1;
-}
-
-// Verificar se a fila está vazia
-bool isEmpty(Queue *queue) {
-    return queue->rear < queue->front;
-}
-
-// Enfileirar um elemento
-void enqueue(Queue *queue, int value) {
-    queue->rear++;
-    queue->items[queue->rear] = value;
-}
-
-// Desenfileirar um elemento
-int dequeue(Queue *queue) {
-    int value = queue->items[queue->front];
-    queue->front++;
-    return value;
+// Função para verificar se o valor é válido (0 ou 1)
+bool isValidInput(int value) {
+    return value == 0 || value == 1;
 }
 
 // Função para contar o número de estudantes que não conseguem comer
 int countStudents(int* students, int studentsSize, int* sandwiches, int sandwichesSize) {
-    Queue queue;
-    init(&queue);
+    int unableToEat = 0;
+    int currentStudentIdx = 0;
 
-    // Enfileirar os estudantes
     for (int i = 0; i < studentsSize; i++) {
-        enqueue(&queue, students[i]);
+        if (!isValidInput(students[i])) {
+            printf("Valor invalido! Digite novamente (0 - circular, 1 - quadrado): ");
+            scanf("%d", &students[i]);
+            i--; // Reexecuta a iteração para ler o valor corretamente
+        }
     }
 
-    // Percorrer os sanduiches e tentar alimentar os estudantes
-    int unableToEat = 0;
-    int attempts = 0; // Contador de tentativas para evitar um loop infinito
-
-    while (!isEmpty(&queue) && attempts < studentsSize) {
-        int currentStudent = dequeue(&queue);
-        if (currentStudent == sandwiches[unableToEat]) {
-            // O estudante come o sanduiche
-            unableToEat++;
-            attempts = 0; // Reinicia o contador de tentativas
+    for (int i = 0; i < sandwichesSize && currentStudentIdx < studentsSize; i++) {
+        if (!isValidInput(sandwiches[i])) {
+            printf("Valor invalido! Digite novamente (0 - circular, 1 - quadrado): ");
+            scanf("%d", &sandwiches[i]);
+            i--; // Reexecuta a iteração para ler o valor corretamente
         } else {
-            // O estudante não come o sanduiche, é colocado no final da fila
-            enqueue(&queue, currentStudent);
-            attempts++;
+            while (currentStudentIdx < studentsSize && students[currentStudentIdx] != sandwiches[i]) {
+                currentStudentIdx++;
+            }
+            if (currentStudentIdx >= studentsSize) {
+                break;
+            }
+            unableToEat++;
+            currentStudentIdx++;
         }
     }
 
@@ -63,21 +40,21 @@ int countStudents(int* students, int studentsSize, int* sandwiches, int sandwich
 }
 
 int main() {
-    int numEst, i, numSand;
+    int numEst, numSand;
 
-    printf("Quantos estudantes estão na fila: ");
+    printf("Quantos estudantes estao na fila: ");
     scanf("%d", &numEst);
     numSand = numEst;
 
     int filaAlunos[100];
     printf("Digite a preferencia dos %d alunos (0 - circular, 1 - quadrado): \n", numEst);
-    for (i = 0; i < numEst; i++) {
+    for (int i = 0; i < numEst; i++) {
         scanf("%d", &filaAlunos[i]);
     }
 
     int pilhaSand[100];
     printf("Digite o tipo de sanduiche (0 - circular, 1 - quadrado): \n");
-    for (i = 0; i < numSand; i++) {
+    for (int i = 0; i < numSand; i++) {
         scanf("%d", &pilhaSand[i]);
     }
 

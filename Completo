@@ -1,15 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-// Função para verificar se o valor é válido (0 ou 1)
-bool isValidInput(int value) {
-    return value == 0 || value == 1;
-}
+bool isValidInput(int value) { return value == 0 || value == 1; }
 
-// Função para contar o número de estudantes que não conseguem comer
 int countStudents(int* students, int studentsSize, int* sandwiches, int sandwichesSize) {
-    int unableToEat = 0;
-    int currentStudentIdx = 0;
+    int unableToEat = 0, currentStudentIdx = 0;
 
     for (int i = 0; i < studentsSize; i++) {
         while (!isValidInput(students[i])) {
@@ -24,9 +19,9 @@ int countStudents(int* students, int studentsSize, int* sandwiches, int sandwich
             scanf("%d", &sandwiches[i]);
         }
 
-        while (currentStudentIdx < studentsSize && students[currentStudentIdx] != sandwiches[i]) {
+        while (currentStudentIdx < studentsSize && students[currentStudentIdx] != sandwiches[i])
             currentStudentIdx++;
-        }
+
         if (currentStudentIdx >= studentsSize) break;
         unableToEat++;
         currentStudentIdx++;
@@ -43,7 +38,7 @@ int main() {
     numSand = numEst;
 
     int filaAlunos[100];
-    printf("Digite a preferência dos %d alunos (0 - circular, 1 - quadrado): \n", numEst);
+    printf("Digite a preferência dos %d alunos (0 - circular, 1 - quadrado):\n", numEst);
     for (int i = 0; i < numEst; i++) {
         scanf("%d", &filaAlunos[i]);
         while (!isValidInput(filaAlunos[i])) {
@@ -53,7 +48,7 @@ int main() {
     }
 
     int pilhaSand[100];
-    printf("Digite o tipo de sanduíche (0 - circular, 1 - quadrado): \n");
+    printf("Digite o tipo de sanduíche (0 - circular, 1 - quadrado):\n");
     for (int i = 0; i < numSand; i++) {
         scanf("%d", &pilhaSand[i]);
         while (!isValidInput(pilhaSand[i])) {

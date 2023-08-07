@@ -1,40 +1,30 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-// Função para verificar se o valor é válido (0 ou 1)
-bool isValidInput(int value) {
-    return value == 0 || value == 1;
-}
+bool isValidInput(int value) { return value == 0 || value == 1; }
 
-// Função para contar o número de estudantes que não conseguem comer
 int countStudents(int* students, int studentsSize, int* sandwiches, int sandwichesSize) {
-    int unableToEat = 0;
-    int currentStudentIdx = 0;
+    int unableToEat = 0, currentStudentIdx = 0;
 
-    for (int i = 0; i < studentsSize; i++) {
+    for (int i = 0; i < studentsSize; i++)
         if (!isValidInput(students[i])) {
             printf("Valor inválido! Digite novamente (0 - circular, 1 - quadrado): ");
             scanf("%d", &students[i]);
-            i--; // ler o valor corretamente
+            i--;
         }
-    }
 
-    for (int i = 0; i < sandwichesSize && currentStudentIdx < studentsSize; i++) {
+    for (int i = 0; i < sandwichesSize && currentStudentIdx < studentsSize; i++)
         if (!isValidInput(sandwiches[i])) {
             printf("Valor inválido! Digite novamente (0 - circular, 1 - quadrado): ");
             scanf("%d", &sandwiches[i]);
-            i--; // ler o valor corretamente
+            i--;
         } else {
-            while (currentStudentIdx < studentsSize && students[currentStudentIdx] != sandwiches[i]) {
+            while (currentStudentIdx < studentsSize && students[currentStudentIdx] != sandwiches[i])
                 currentStudentIdx++;
-            }
-            if (currentStudentIdx >= studentsSize) {
-                break;
-            }
+            if (currentStudentIdx >= studentsSize) break;
             unableToEat++;
             currentStudentIdx++;
         }
-    }
 
     return studentsSize - unableToEat;
 }
@@ -42,24 +32,20 @@ int countStudents(int* students, int studentsSize, int* sandwiches, int sandwich
 int main() {
     int numEst, numSand;
 
-    printf("Quantos estudantes estao na fila: ");
+    printf("Quantos estudantes estão na fila: ");
     scanf("%d", &numEst);
     numSand = numEst;
 
     int filaAlunos[100];
-    printf("Digite a preferencia dos %d alunos (0 - circular, 1 - quadrado): \n", numEst);
-    for (int i = 0; i < numEst; i++) {
-        scanf("%d", &filaAlunos[i]);
-    }
+    printf("Digite a preferência dos %d alunos (0 - circular, 1 - quadrado): \n", numEst);
+    for (int i = 0; i < numEst; i++) scanf("%d", &filaAlunos[i]);
 
     int pilhaSand[100];
-    printf("Digite o tipo de sanduiche (0 - circular, 1 - quadrado): \n");
-    for (int i = 0; i < numSand; i++) {
-        scanf("%d", &pilhaSand[i]);
-    }
+    printf("Digite o tipo de sanduíche (0 - circular, 1 - quadrado): \n");
+    for (int i = 0; i < numSand; i++) scanf("%d", &pilhaSand[i]);
 
     int result = countStudents(filaAlunos, numEst, pilhaSand, numSand);
-    printf("Numero de estudantes que nao conseguem comer: %d\n", result);
+    printf("Número de estudantes que não conseguem comer: %d\n", result);
 
     return 0;
 }
